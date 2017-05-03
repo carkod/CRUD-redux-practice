@@ -1,0 +1,7 @@
+{
+  "name": "chat-example",
+  "version": "0.0.0",
+  "description": "CRUD redux tutorial from Rem Zolotykh",
+  "repository": "https://github.com/carkod/CRUD-redux-practice",
+  "author": "Carlos"
+}
