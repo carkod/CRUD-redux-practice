@@ -16,9 +16,10 @@
     "react-scripts": "0.9.5"
   },
   "scripts": {
-    "start": "react-scripts build && PORT=8081 react-scripts start",
+    "start": "PORT=8081 react-scripts start",
+    "build":"react-scripts build ",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
-  "proxy":"http://0.0.0.0:8080"
+  "proxy":"http://crud-redux-carkod.c9users.io:8080"
 }
