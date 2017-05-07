@@ -10,8 +10,7 @@ class GamesPage extends React.Component {
     render() {
         return(
             <div>
-            
-            <h1>Games List</h1> 
+             
             <GamesList games={this.props.games} />
             </div>    
         );
