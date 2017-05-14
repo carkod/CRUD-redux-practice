@@ -1,6 +1,6 @@
 import { SET_GAMES } from '../actions';
 import { ADD_GAME } from '../actions';
-import { GAME_FETCHED } from '../actions';
+import { GAME_FETCHED, GAME_UPDATED } from '../actions';
 
 export default function games (state = [], action = {} ){
     switch(action.type) {
@@ -11,6 +11,12 @@ export default function games (state = [], action = {} ){
             ...state,
             action.game
             ];
+        case GAME_UPDATED:
+          return state.map(item => {
+            if(item._id === action.game._id) return action.game;
+            return item;
+          });
+          
         case GAME_FETCHED:
       const index = state.findIndex(item => item._id === action.game._id);
       if (index > -1) {

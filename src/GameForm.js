@@ -1,8 +1,5 @@
 import React from 'react';
 import classnames from 'classnames';
-import { connect } from 'react-redux';
-import { Redirect } from 'react-router';
-import { saveGame, fetchGame } from './actions';
 
 class GameForm extends React.Component {
     state = {
@@ -11,7 +8,6 @@ class GameForm extends React.Component {
         cover: this.props.game ? this.props.game.cover : '',
         errors:{},
         loading: false,
-        done:false
     }
     
     
@@ -23,12 +19,6 @@ componentWillReceiveProps = (nextProps) => {
  });
 }
 
-componentDidMount = () => {
- if (this.props.params._id) {
-   this.props.fetchGame(this.props.params._id);
- }
-}
-    
     handleChange = (e) => {
         if(!!this.state.errors[e.target.name]) {
             let errors = Object.assign({}, this.state.errors);
@@ -53,12 +43,10 @@ componentDidMount = () => {
         const isValid = Object.keys(errors).length === 0;
         
         if(isValid) {
-            const { title, cover } = this.state;
+            const {_id, title, cover } = this.state;
             this.setState({ loading:true});
-            this.props.saveGame({ title, cover }).then(
-                () => { this.setState({ done:true })},
-                (err) => err.response.json().then(({errors}) => this.setState({ errors, loading: false }))    
-            );
+            this.props.saveGame({ _id, title, cover })
+            .catch((err) => err.response.json().then(({errors}) => this.setState({ errors, loading: false})))
         }
     }
     
@@ -91,20 +79,12 @@ componentDidMount = () => {
             )
         return(
            <div>
-            { this.state.done? <Redirect to="/games" /> : form }
+            { form }
            </div> 
         );
     }
 }
 
-function mapStateToProps(state, props) {
-  if (props.params._id) {
-    return {
-      game: state.games.find(item => item._id === props.params._id)
-    }
-  }
 
-  return { game: null };
-}
 
-export default connect(mapStateToProps, { saveGame, fetchGame })(GameForm);
+export default GameForm;
